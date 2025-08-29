@@ -1,0 +1,25 @@
+services:
+  automaton:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Automaton
+    restart: unless-stopped
+    volumes:
+      - ./.env:/app/.env
+      - ./logs:/app/logs
+      - ./stats:/app/stats
+    environment:
+      - TZ=Europe/Istanbul
+    # Sağlık kontrolü ekleyebiliriz
+    healthcheck:
+      test: ["CMD", "python", "-c", "import os; assert os.path.exists('/app/logs')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      
+  bos_konteyner:
+    image: busybox:1.36
+    container_name: bos_konteyner
+    restart: "no"
+    command: "sh -c 'tail -f /dev/null'"

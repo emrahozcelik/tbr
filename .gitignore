@@ -1,0 +1,11 @@
+# Environment variables
+.env
+
+# Log files
+logs/
+
+# Statistics and runtime data
+stats/
+
+# Kiro-specific directory
+.kiro/
